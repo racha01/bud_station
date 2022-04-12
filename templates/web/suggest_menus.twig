@@ -1,0 +1,135 @@
+{% extends "layout/layout.twig" %}
+{% block css %}
+    {% webpack_entry_css 'layout/datatables' %}
+{% endblock %}
+
+{% block js %}
+    {% webpack_entry_js 'layout/datatables' %}
+    {% webpack_entry_js 'web/menus' %}
+{% endblock %}
+
+{% block content %}
+  <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h2><i class="fas fa-hamburger"></i>Suggest Menu</h2>
+                <hr>
+                <div class="list-group">
+                  <div class="container">
+                  {% for menu in menus %}
+                    <div class="row">
+                      <div class="col"><img class="rounded-sm" src="images/foods/{{menu.menu_image}}" alt="Italian Trulli" width="135" height="90" ></div>
+                      <div class="col">{{menu.food_menu}}<br><button type="button" id="editBt" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editMenu" name="{{ menu|json_encode }}">{{menu.price ~ ' ฿'}}</button></a></div><br>
+                    </div><br>
+                  {% endfor %}
+                  </div>
+                </div>
+              <p></p>
+          </div>
+      </div>
+  </div>
+
+<!-- Modal edit menu -->
+  <div class="modal fade" id="editMenu">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <form id="form-editMenu" action="edit_menu" method="post">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Edit Menu</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <!-- Modal body -->
+          <div class="modal-body">          
+            <div class="form-menu">
+              <input type="text" id="editMenuID" name="id" hidden>
+              <label for="menuName">Menu Code</label>
+              <input type="text" autocomplete="off" class="form-control" id="editMenuCode" name="menu_code" required>
+            </div>          
+            <div class="form-menu">
+              <label for="email">Menu Name</label>
+              <input type="text" autocomplete="off" class="form-control" id="editMenuName" name="food_menu" required>
+            </div>
+            <div class="form-menu">
+              <label for="editPassword">Price</label>
+              <input type="text" autocomplete="off" class="form-control" id="editPreice" name="price">
+            </div>          
+            <div class="form-menu">
+              <label for="FoodType">Food Type</label>
+              <select class="form-control"  id="editFoodType" name="food_type">
+                <option value="REFRESHMENTS">REFRESHMENTS</option>
+                <option value="FULLMEALFASTFOOD">FULLMEALFASTFOOD</option>
+                <option value="SNACKFASTFOOD">SNACKFASTFOOD</option>
+              </select>
+            </div>       
+            <div class="form-menu">
+              <label for="editStatus">Status</label>
+              <select class="form-control"  id="editStatus" name="status">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+              </select>
+            </div>        
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<!-- Modal delete menu -->
+  <div class="modal fade" id="deleteMenu">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <form id="form-deleteMenu" action="delete_menu" method="post">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Delete Menu</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <!-- Modal body -->
+          <div class="modal-body">          
+            <div class="form-menu">
+              <input type="text" id="deleteMenuID" name="id" hidden>
+              <label for="menuName">Menu Code</label>
+              <input type="text" autocomplete="off" class="form-control" id="deleteMenuCode" name="menu_code" required>
+            </div>          
+            <div class="form-menu">
+              <label for="email">Menu Name</label>
+              <input type="text" autocomplete="off" class="form-control" id="deleteMenuName" name="food_menu" required>
+            </div>
+            <div class="form-menu">
+              <label for="deletePassword">Price</label>
+              <input type="text" autocomplete="off" class="form-control" id="deletePreice" name="price">
+            </div>          
+            <div class="form-menu">
+              <label for="FoodType">Food Type</label>
+              <select class="form-control"  id="deleteFoodType" name="food_type">
+                <option value="REFRESHMENTS">REFRESHMENTS</option>
+                <option value="FULLMEALFASTFOOD">FULLMEALFASTFOOD</option>
+                <option value="SNACKFASTFOOD">SNACKFASTFOOD</option>
+              </select>
+            </div>       
+            <div class="form-menu">
+              <label for="deleteStatus">Status</label>
+              <select class="form-control"  id="deleteStatus" name="status">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+              </select>
+            </div>        
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+{% endblock %}
